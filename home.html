@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" integrity="sha512-PgQMlq+nqFLV4ylk1gwUOgm6CtIIXkKwaIHp/PAIWHzig/lKZSEGKEysh0TCVbHJXCLN7WetD8TFecIky75ZfQ==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="./style.css" type="text/css">
+    <title>Weather App</title>
+</head>
+<body>
+    <div class="container">
+        <div class="wave -one"></div>
+        <div class="wave -two"></div>
+        <div class="wave -three"></div>
+
+        <div id="weathercon">
+            <i class="fas fa-sun" style="color: yellow;"></i>
+        </div>
+
+        <div class="info">
+            <h2 class="location"><i class="fas fa-street-view"></i>{%location%},{%country%}</h2>
+            <p id="date">FRI | MAR 26 | 04:02 PM</p>
+            <h1 class="temp">{%temp%}&deg;</h1>
+            <h3 class="tempmin_max">Min {%tempmin%}&deg; | Max {%tempmax%}&deg;</h3>
+        </div>
+    </div>
+</body>
+<script>
+const date=document.getElementById('date');
+const weathercon = document.getElementById('weathercon');
+const tempStatus="{%tempstatus%}";
+
+if(tempStatus == "Sunny")
+    weathercon.innerHTML="<i class='fas fa-sun' style='color: yellow;'></i>";
+else if(tempStatus == "Clouds")
+    weathercon.innerHTML="<i class='fas fa-cloud' style='color: #dfe4ea;'></i>";
+else if(tempStatus == "Rainy")
+    weathercon.innerHTML="<i class='fas fa-rain' style='color: #a4b0be;'></i>";
+else 
+    weathercon.innerHTML="<i class='fas fa-cloud' style='color:#dfe4ea;'></i>";
+const getCurrentDay=()=>{
+    let currentTime = new Date();
+    let weekday=["SUN","MON","TUE","WED","THUR","FRI","SAT"];
+    return weekday[currentTime.getDay()];
+};
+const getCurrentTime=()=>{
+    let months=["JAN","FEB","MAR","APR","MAY","JUNE","JULY","AUG","SEPT","OCT","NOV","DEC"];
+    let dateObj = new Date();
+    let month = months[dateObj.getMonth()];
+    let date = dateObj.getDate();
+
+    let hours = dateObj.getHours();
+    let minutes = dateObj.getMinutes();
+    let periods ="AM";
+    if(hours>11)
+    {
+        periods="PM";
+        if(hours>12)
+        {
+            hours-=12;
+        }
+    }
+    else{
+        periods="AM";
+    }
+    if(minutes<10){
+        minutes='0'+minutes;
+    }
+    return `${month} ${date} | ${hours}:${minutes} ${periods}`;
+}
+setInterval(()=>{date.innerHTML= getCurrentDay()+" | "+getCurrentTime()},1000);
+
+</script>
+</html>

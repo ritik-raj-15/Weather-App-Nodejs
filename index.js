@@ -6,7 +6,7 @@ const homeFile = fs.readFileSync("home.html","UTF-8");
 const cssFile = fs.readFileSync("style.css","utf-8");
 
 const replaceVal =(file,val)=>{
-    let temperature = file.replace("{%temp%}",val.main.temp);
+    let temperature = file.replace("{%temp%}",val.main.temp);// bydefault the temp is in Kelvin.
      temperature = temperature.replace("{%tempmin%}",val.main.temp_min);
      temperature = temperature.replace("{%tempmax%}",val.main.temp_max);
      temperature = temperature.replace("{%location%}",val.name.toUpperCase());
